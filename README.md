@@ -37,7 +37,7 @@
 
 ![九张透明底表情单片叠在棋盘格上的联系表](assets/demos/cutout-contact-sheet.webp)
 
-对应流程：[拆片去背景与验收](references/cutout.md)。抠图由 `scripts/sticker_cutout.py` 按确定性规则完成，适用近似均匀的纯色卡片底；复杂背景仍需逐张人工验收。
+对应流程：[拆片去背景与验收](references/cutout.md)。抠图由仓库自带的确定性脚本完成，适用近似均匀的纯色卡片底；复杂背景仍需逐张人工验收。
 
 ### 上架效果
 
