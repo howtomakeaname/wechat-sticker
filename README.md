@@ -4,6 +4,29 @@
 
 它把系列创作中的经验整理成可复用流程：角色一致性、续作梗与动作去重、中文检查，以及精确尺寸和真实透明度验收。
 
+## 效果预览
+
+以下是本 skill 整理流程所依据的实际生成案例，展示同一角色如何扩展成不同类型的素材。角色由使用者的参考图决定；最终画风和细节取决于所用图像生成工具。
+
+### 九宫格表情
+
+点击图片可查看大图。
+
+| 纯表情 | 少量中文 | 可爱梗续作 |
+| --- | --- | --- |
+| [![同一银蓝角色的九种无文案 Q 版表情](assets/demos/sticker-grid-expressions.webp)](assets/demos/sticker-grid-expressions.webp) | [![加入收到、好耶、啊、救命等少量中文的九宫格](assets/demos/sticker-grid-captions.webp)](assets/demos/sticker-grid-captions.webp) | [![吃一点、送花、让我康康、贴贴等可爱梗九宫格](assets/demos/sticker-grid-cute-memes.webp)](assets/demos/sticker-grid-cute-memes.webp) |
+| 用动作表达情绪 | 四格短文字，其余无字 | 根据已有套组继续设计动作与文案 |
+
+对应流程：[九宫格生成](references/sticker-grid.md) · [梗选择与续作去重](references/memes.md)。续作生成后仍需逐格核对文字和动作，不能仅凭提示词认定已去重。
+
+### 表情合集宣传横幅
+
+750×400 横幅示例，将主角色、表情预览和标题整合成一张宣传图。
+
+![蓝白少女表情包合集宣传横幅，主角色与三个小表情预览](assets/demos/sticker-collection-banner.webp)
+
+对应流程：[宣传横幅](references/banner.md)。以上是便于 GitHub 加载的 WebP 展示图；实际交付仍按用户规格导出 PNG。图片来源与展示尺寸见 [demo 说明](assets/demos/README.md)。
+
 ## 能做什么
 
 | 类别 | 默认输出 | reference |
@@ -86,6 +109,7 @@ references/
   cover.md                   240×240 透明封面
   export-and-qa.md            文件导出、命令与验收
 assets/
+  demos/                    README 效果预览图与说明
   sticker-history.template.json
 scripts/image_assets.py      本地图片工具
 tests/test_image_assets.py   图片工具行为测试
@@ -98,6 +122,6 @@ tests/test_image_assets.py   图片工具行为测试
 .venv/bin/python -m unittest discover -s tests -v
 ```
 
-仓库包含中文说明、按类别提示词模板、通用记录模板和本地校验工具。不包含制作案例的原始角色图、私人文件路径、生成成品或密钥。按需添加自己有权发布的示例图片。
+仓库包含中文说明、按类别提示词模板、通用记录模板、本地校验工具，以及经用户选用的生成效果展示图。不包含制作案例的原始角色图、私人文件路径或密钥。示例图集中存放在 `assets/demos/`；日常输入、生成结果和本机交接文件仍由 `.gitignore` 排除。
 
 许可证为 [MIT](LICENSE)，适用于本仓库的代码、说明和模板；使用者输入或生成的图片不因使用本仓库而自动获得该许可证。这个项目不会替使用者上传或发布微信专辑。
