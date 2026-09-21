@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "character_file": "character.md",
+  "reference_images": [],
+  "preferences": {
+    "language": "zh-CN",
+    "caption_density": "sparse",
+    "avoid_repeated_captions": true,
+    "avoid_repeated_actions": true
+  },
+  "sets": []
+}

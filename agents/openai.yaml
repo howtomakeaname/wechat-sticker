@@ -1,0 +1,4 @@
+interface:
+  display_name: "微信表情包工作坊"
+  short_description: "制作角色一致、梗不重复的九宫格表情、宣传横幅与透明专辑封面"
+  default_prompt: "使用 $wechat-sticker，根据我的角色参考图制作微信表情包，并按生成类别读取对应 reference。"
