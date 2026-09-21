@@ -1,0 +1,48 @@
+# OS and editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Python environments, caches and build artifacts
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.tox/
+.nox/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# Local credentials (keep sanitized examples trackable)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# User media and generated outputs; do not ignore curated assets/*.png globally
+input/
+inputs/
+output/
+outputs/
+work/
+generated_images/
+downloads/
+tmp/
+scratch/
+*.log
+
+# Machine-specific handoff material stays out of the public skill
+/local/
+/handoff/
+/*handoff*.md
