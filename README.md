@@ -27,6 +27,24 @@
 
 对应流程：[宣传横幅](references/banner.md)。以上是便于 GitHub 加载的 WebP 展示图；实际交付仍按用户规格导出 PNG。图片来源与展示尺寸见 [demo 说明](assets/demos/README.md)。
 
+### 拆片与去背景
+
+九宫格是合集图，要当独立表情使用还需拆片并去掉卡片底色。左图是拆出的白底单片，右图是去背景后叠在棋盘格上的效果，透明区域清晰可见。
+
+![同一张「好耶」单片：左为拆出的白底图，右为去背景后叠棋盘格](assets/demos/cutout-before-after.webp)
+
+整套九张去背景后的联系表（棋盘格预览）：
+
+![九张透明底表情单片叠在棋盘格上的联系表](assets/demos/cutout-contact-sheet.webp)
+
+对应流程：[拆片去背景与验收](references/cutout.md)。抠图由 `scripts/sticker_cutout.py` 按确定性规则完成，适用近似均匀的纯色卡片底；复杂背景仍需逐张人工验收。
+
+### 上架效果
+
+同一套素材（横幅、封面、透明单片）上传微信表情商店后的专辑页效果，截图由使用者提供。
+
+![微信表情商店中「SE萌娘」专辑页：横幅、名称与十六个表情缩略图](assets/demos/wechat-album-effect.webp)
+
 ## 能做什么
 
 | 类别 | 默认输出 | reference |
@@ -36,6 +54,7 @@
 | 梗图／系列续作 | 按已有文字、动作和场景记录去重 | [memes.md](references/memes.md) |
 | 宣传横幅 | 750×400 PNG | [banner.md](references/banner.md) |
 | 专辑封面 | 240×240 PNG、透明、无白描边 | [cover.md](references/cover.md) |
+| 九宫格拆透明单片 | 九张去卡片底的透明 PNG + 棋盘格预览 | [cutout.md](references/cutout.md) |
 | 导出与检查 | 像素尺寸、格式、Alpha、大小；可选单格裁切 | [export-and-qa.md](references/export-and-qa.md) |
 
 尺寸是来自制作案例的可覆盖预设，不是微信官方完整规范。平台要求有更新时，以用户提供的当前提交页面为准。九宫格是合集图，不等于可以直接上传的九个独立表情文件。
@@ -62,7 +81,7 @@ python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
 ```
 
-图像生成由宿主提供。仓库不内置 API key，不绑定付费服务，也不调用模型。附带脚本只进行本地检查、尺寸调整和裁切，不负责绘制角色或智能抠图。
+图像生成由宿主提供。仓库不内置 API key，不绑定付费服务，也不调用模型。附带脚本只进行本地检查、尺寸调整、裁切和确定性的卡片底去背景（`sticker_cutout.py`，适用近似均匀纯色底），不负责绘制角色，也不做任意场景的通用抠图。
 
 ## 调用示例
 
@@ -92,9 +111,15 @@ python3 -m venv .venv
 
 # 按 3×3 数学等分裁切；输入有不等间距时用 --boxes 指定实际边界
 .venv/bin/python scripts/image_assets.py split-grid output/grid.png output/tiles
+
+# 单片去卡片底：边缘泛洪抠图，输出透明 PNG 和棋盘格检查预览
+.venv/bin/python scripts/sticker_cutout.py output/tiles/sticker-01.png output/cutout/sticker-01.png --preview output/preview/sticker-01.png
+
+# 浅色道具贴边被误删时用保护框；白边缺口渗漏进头发时加大 --erode
+.venv/bin/python scripts/sticker_cutout.py output/tiles/sticker-04.png output/cutout/sticker-04.png --protect 0,95,215,418 --erode 4
 ```
 
-工具输出 JSON；验收不通过退出码为 1，参数或文件错误为 2。默认不覆盖已有文件。裁切不等于去背景：圆角卡片、边框、底色和文字都会保留。
+工具输出 JSON；验收不通过退出码为 1，参数或文件错误为 2。默认不覆盖已有文件。裁切不等于去背景；抠图适用近似均匀的纯色卡片底，仍须逐张看图验收。
 
 ## 仓库结构
 
@@ -107,12 +132,14 @@ references/
   memes.md                   梗选择与续作去重
   banner.md                  750×400 宣传横幅
   cover.md                   240×240 透明封面
+  cutout.md                  拆片去背景与验收
   export-and-qa.md            文件导出、命令与验收
 assets/
   demos/                    README 效果预览图与说明
   sticker-history.template.json
-scripts/image_assets.py      本地图片工具
-tests/test_image_assets.py   图片工具行为测试
+scripts/image_assets.py      本地图片工具（检查、导出、裁切）
+scripts/sticker_cutout.py    卡片底去背景工具
+tests/                       两个脚本的行为测试
 .github/workflows/check.yml  Python 测试与依赖安装
 ```
 

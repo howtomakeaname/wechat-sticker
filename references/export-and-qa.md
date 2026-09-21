@@ -30,6 +30,8 @@ python3 scripts/image_assets.py split-grid SHEET.png output/tiles
 python3 scripts/image_assets.py split-grid SHEET.png output/tiles --boxes crop-boxes.json
 ```
 
+要把裁出的单格再去除卡片底、得到透明 PNG，继续阅读 [拆片与去背景](cutout.md)。
+
 `crop-boxes.json` 是九个坐标框组成的数组；左上包含、右下不包含。按从左到右、从上到下填写。边框、格间空隙和文字位置要以真实成图决定，不能默认模型一定生成了完美数学网格。
 
 `--width` 和 `--height` 必须一起提供。`export` 无 profile 时需要明确尺寸。`--force` 才能覆盖既有输出；即使用它也不能把输入原图作为输出路径。不要对不透明输入用“添加 Alpha 通道”代替抠图。
