@@ -61,7 +61,25 @@
 
 ## 安装
 
-本 skill 就是一个含 `SKILL.md` 的目录，任何遵循该约定的 Agent 宿主都能加载，区别只在技能目录的位置：
+本 skill 就是一个含 `SKILL.md` 的目录，任何遵循该约定的 Agent 宿主都能加载。
+
+### 一键安装（推荐）
+
+通过社区通用的 [skills CLI](https://www.npmjs.com/package/skills)，一条命令装到本机一个或多个 Agent：
+
+```bash
+# 交互式选择宿主和技能
+npx skills add howtomakeaname/wechat-sticker-skill
+
+# 非交互：装到 Codex 和 Claude Code
+npx skills add howtomakeaname/wechat-sticker-skill -g -a codex -a claude-code -y
+```
+
+安装后重开一个 Agent 会话即可通过 `$wechat-sticker` 调用。
+
+### 手动安装
+
+不同宿主的区别只在技能目录的位置：
 
 | 宿主 | 个人技能目录 |
 | --- | --- |
