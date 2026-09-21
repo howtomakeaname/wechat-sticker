@@ -59,12 +59,22 @@
 
 尺寸是来自制作案例的可覆盖预设，不是微信官方完整规范。平台要求有更新时，以用户提供的当前提交页面为准。九宫格是合集图，不等于可以直接上传的九个独立表情文件。
 
-## 安装到 Codex
+## 安装
 
-下载仓库 ZIP 并解压，或克隆仓库。在仓库根目录执行以下命令，将整个目录复制成一个名为 `wechat-sticker` 的 skill：
+本 skill 就是一个含 `SKILL.md` 的目录，任何遵循该约定的 Agent 宿主都能加载，区别只在技能目录的位置：
+
+| 宿主 | 个人技能目录 |
+| --- | --- |
+| Codex | `~/.codex/skills`（或 `$CODEX_HOME/skills`） |
+| Claude Code | `~/.claude/skills` |
+| Kimi Code / Kimi Work | `~/Library/Application Support/kimi-desktop/daimon-share/daimon/skills` |
+| 其他宿主 | 按各自文档的技能目录 |
+
+下载仓库 ZIP 并解压，或克隆仓库。在仓库根目录执行以下命令，将整个目录复制成一个名为 `wechat-sticker` 的 skill（默认以 Codex 为例，其他宿主把 `root` 改成上表对应路径即可）：
 
 ```bash
-skill_destination="${CODEX_HOME:-$HOME/.codex}/skills/wechat-sticker"
+root="${CODEX_HOME:-$HOME/.codex}/skills"   # Claude Code 改为 "$HOME/.claude/skills"
+skill_destination="$root/wechat-sticker"
 if [ -e "$skill_destination" ]; then
   printf '目标已存在，请先比较现有版本：%s\n' "$skill_destination"
 else
@@ -74,7 +84,15 @@ else
 fi
 ```
 
-其他支持 `SKILL.md` 的宿主可按自己的技能加载方式使用本目录。可读规范不依赖 Python；运行附带图片处理脚本需 Python 3.9+ 和 Pillow：
+想跟随仓库更新，也可以用软链接代替复制（`git pull` 即完成升级）：
+
+```bash
+ln -s "$(pwd)" "$root/wechat-sticker"
+```
+
+Claude Code 还支持项目级安装：把目录放到某个项目的 `.claude/skills/wechat-sticker`，只在该项目中生效。
+
+可读规范不依赖 Python；运行附带图片处理脚本需 Python 3.9+ 和 Pillow：
 
 ```bash
 python3 -m venv .venv
