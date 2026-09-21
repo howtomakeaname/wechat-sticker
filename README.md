@@ -133,30 +133,6 @@ python3 -m venv .venv
 
 续作时保留前一轮生成的 `character.md`、`sticker-history.json` 和图片。换会话时一并提供，才能可靠去重。
 
-## 本地图片工具
-
-```bash
-# 只读检查，--profile cover 验证尺寸、PNG、实际透明像素和非空内容
-.venv/bin/python scripts/image_assets.py check output/cover.png --profile cover
-
-# 精确导出。输入必须已经有实际透明背景；不透明输入会失败，不会“伪造”透明。
-.venv/bin/python scripts/image_assets.py export source/cover.png output/cover.png --profile cover
-
-# 横幅默认等比裁切；也可选择等比适配并填充
-.venv/bin/python scripts/image_assets.py export source/banner.png output/banner.png --profile banner --fit contain --background '#EAF3FF'
-
-# 按 3×3 数学等分裁切；输入有不等间距时用 --boxes 指定实际边界
-.venv/bin/python scripts/image_assets.py split-grid output/grid.png output/tiles
-
-# 单片去卡片底：边缘泛洪抠图，输出透明 PNG 和棋盘格检查预览
-.venv/bin/python scripts/sticker_cutout.py output/tiles/sticker-01.png output/cutout/sticker-01.png --preview output/preview/sticker-01.png
-
-# 浅色道具贴边被误删时用保护框；白边缺口渗漏进头发时加大 --erode
-.venv/bin/python scripts/sticker_cutout.py output/tiles/sticker-04.png output/cutout/sticker-04.png --protect 0,95,215,418 --erode 4
-```
-
-工具输出 JSON；验收不通过退出码为 1，参数或文件错误为 2。默认不覆盖已有文件。裁切不等于去背景；抠图适用近似均匀的纯色卡片底，仍须逐张看图验收。
-
 ## 仓库结构
 
 ```text
